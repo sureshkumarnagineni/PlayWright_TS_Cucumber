@@ -1,6 +1,6 @@
 import { PlaywrightActions } from '../actions/PlaywrightActions';
 import { LoginPage } from '../pages/LoginPage';
-import { FileUtils } from '../utils/fileUtils';
+import { FileUtils } from '../utils/FileUtils';
 
 export class LoginModule {
     private actions: PlaywrightActions;

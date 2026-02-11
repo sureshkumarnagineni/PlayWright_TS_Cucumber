@@ -1,7 +1,7 @@
 import { Given, When, Then } from '@cucumber/cucumber';
 import { PlaywrightActions } from '../actions/PlaywrightActions';
 import { LoginModule } from '../modules/LoginModule';
-import { FileUtils } from '../utils/fileUtils';
+import { FileUtils } from '../utils/FileUtils';
 let actions: PlaywrightActions;
 let loginMod: LoginModule;
 
