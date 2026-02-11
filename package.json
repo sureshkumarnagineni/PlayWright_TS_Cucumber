@@ -1,0 +1,30 @@
+{
+  "name": "pw_ts_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "cucumber-js",
+    "report": "allure serve allure-results"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sureshkumarnagineni/PlayWright_TS_Cucumber.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/sureshkumarnagineni/PlayWright_TS_Cucumber/issues"
+  },
+  "homepage": "https://github.com/sureshkumarnagineni/PlayWright_TS_Cucumber#readme",
+  "devDependencies": {
+    "@cucumber/cucumber": "^12.6.0",
+    "@playwright/test": "^1.58.2",
+    "allure-cucumberjs": "^2.10.0",
+    "properties-reader": "^3.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}

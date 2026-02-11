@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<testsuite name="Cucumber" time="6.031" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-02-11T16:50:51.813Z">
+  <testcase classname="Purchase Workflow" name="Successfully purchase a product as a Standard User" time="6.006">
+    <system-out><![CDATA[Given User launches the application.........................................passed
+When User logins as "standard_user".........................................passed
+And User adds product to cart and completes checkout........................passed
+Then User verifies order confirmation "Thank you for your order!"...........passed]]></system-out>
+  </testcase>
+</testsuite>
