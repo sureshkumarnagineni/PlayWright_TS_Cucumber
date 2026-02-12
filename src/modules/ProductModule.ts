@@ -5,8 +5,8 @@ export class ProductModule {
     private actions: PlaywrightActions;
     private productPage = new ProductPage();
 
-    constructor(page: any) { 
-        this.actions = new PlaywrightActions(page); 
+    constructor(page: any) {
+        this.actions = new PlaywrightActions(page);
     }
 
     async filterByPriceAscending() {
@@ -25,5 +25,15 @@ export class ProductModule {
             first: parseFloat(prices[0].replace('$', '')),
             last: parseFloat(prices[prices.length - 1].replace('$', ''))
         };
+    }
+
+    async verifyPriceOrder(): Promise<void> {
+        const prices = await this.getFirstAndLastPrice();
+        console.log(`First Product: $${prices.first}, Last Product: $${prices.last}`);
+
+        if (prices.first > prices.last) {
+            throw new Error(`Expected first price ($${prices.first}) to be less than last price ($${prices.last})`);
+        }
+        console.log('✓ Price filter verification passed!');
     }
 }

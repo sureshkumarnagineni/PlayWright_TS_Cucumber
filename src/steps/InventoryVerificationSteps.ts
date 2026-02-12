@@ -9,14 +9,9 @@ When('User navigates to inventory', async function () {
 });
 
 When('User checks product availability', async function () {
-    const details = await inventoryMod.getProductDetails();
-    console.log(`Checking availability for: ${details.name}`);
-    console.log(`Total products available: ${details.count}`);
+    await inventoryMod.checkProductAvailability();
 });
 
 Then('User verifies all products have inventory status', async function () {
-    const result = await inventoryMod.verifyAllProductsAvailable();
-    if (!result) {
-        throw new Error('Failed to verify product inventory status');
-    }
+    await inventoryMod.verifyProductInventoryStatus();
 });

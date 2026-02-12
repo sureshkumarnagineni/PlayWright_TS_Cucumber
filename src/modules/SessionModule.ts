@@ -5,8 +5,8 @@ export class SessionModule {
     private actions: PlaywrightActions;
     private sessionPage = new SessionPage();
 
-    constructor(page: any) { 
-        this.actions = new PlaywrightActions(page); 
+    constructor(page: any) {
+        this.actions = new PlaywrightActions(page);
     }
 
     async logout() {
@@ -32,5 +32,22 @@ export class SessionModule {
     async verifyLoginPage(): Promise<boolean> {
         const url = await this.getCurrentUrl();
         return url.includes('saucedemo.com');
+    }
+
+    async verifyLogoutAndRedirect(): Promise<void> {
+        const isLoggedOut = await this.isLoggedOut();
+        const isLoginPage = await this.verifyLoginPage();
+
+        console.log(`Logged out: ${isLoggedOut}, On login page: ${isLoginPage}`);
+
+        if (!isLoggedOut) {
+            throw new Error('User is still logged in');
+        }
+
+        if (!isLoginPage) {
+            throw new Error('Not redirected to login page after logout');
+        }
+
+        console.log('✓ Successfully logged out and redirected to login page');
     }
 }

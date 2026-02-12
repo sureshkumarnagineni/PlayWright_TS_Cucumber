@@ -5,8 +5,8 @@ export class InventoryModule {
     private actions: PlaywrightActions;
     private inventoryPage = new InventoryPage();
 
-    constructor(page: any) { 
-        this.actions = new PlaywrightActions(page); 
+    constructor(page: any) {
+        this.actions = new PlaywrightActions(page);
     }
 
     async checkInventory() {
@@ -24,13 +24,13 @@ export class InventoryModule {
     async verifyAllProductsAvailable(): Promise<boolean> {
         const productCount = await this.getProductCount();
         const productNames = await this.getProductNames();
-        
+
         console.log(`Found ${productCount} products: ${productNames.join(', ')}`);
-        
+
         if (productCount === 0 || productNames.length === 0) {
             throw new Error('No products found in inventory');
         }
-        
+
         console.log('✓ All products are available for purchase');
         return true;
     }
@@ -42,5 +42,18 @@ export class InventoryModule {
             name: names[0] || 'Unknown',
             count: count
         };
+    }
+
+    async checkProductAvailability(): Promise<void> {
+        const details = await this.getProductDetails();
+        console.log(`Checking availability for: ${details.name}`);
+        console.log(`Total products available: ${details.count}`);
+    }
+
+    async verifyProductInventoryStatus(): Promise<void> {
+        const result = await this.verifyAllProductsAvailable();
+        if (!result) {
+            throw new Error('Failed to verify product inventory status');
+        }
     }
 }

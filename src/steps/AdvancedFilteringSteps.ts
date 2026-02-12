@@ -13,8 +13,5 @@ When('User sorts products by price ascending', async function () {
 });
 
 Then('User verifies filtered products are within price range', async function () {
-    const isValid = await filterMod.verifyProductsSortedByPrice();
-    if (!isValid) {
-        throw new Error('Products are not sorted by price in ascending order');
-    }
+    await filterMod.verifyFilteredProductsInPriceRange();
 });
