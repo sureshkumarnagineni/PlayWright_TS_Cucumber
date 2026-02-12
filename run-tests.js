@@ -24,10 +24,16 @@ if (!fs.existsSync(reportsDir)) {
 console.log('🧪 Running tests...\n');
 
 try {
+    // Set timezone to IST (Asia/Kolkata)
+    const env = Object.assign({}, process.env, {
+        TZ: 'Asia/Kolkata'
+    });
+    
     // Execute Cucumber using shell (handles Windows/Unix)
     execSync('npx cucumber-js', {
         cwd: projectRoot,
-        stdio: 'inherit'
+        stdio: 'inherit',
+        env: env
     });
     
     console.log('\n✅ Tests completed successfully');

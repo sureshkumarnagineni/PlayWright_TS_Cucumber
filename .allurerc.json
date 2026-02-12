@@ -1,5 +1,7 @@
 {
   "allure": {
-    "report": "Reports/allure-report"
+    "report": "Reports/allure-report",
+    "name": "Test_PW_TS",
+    "timezone": "Asia/Kolkata"
   }
 }

@@ -1,4 +1,4 @@
-# Playwright + Cucumber + TypeScript + Allure Testing Framework
+# Test_PW_TS - Playwright + Cucumber + TypeScript + Allure Testing Framework
 
 ## Quick Start
 
@@ -45,14 +45,27 @@ PW_TS_Project/
 
 ## Available Commands
 
+### Quick Start (Recommended)
+```cmd
+test-and-report.bat     # Windows: Run tests + generate + auto-open report
+```
+
+### NPM Commands
 | Command | Purpose |
 |---------|---------|
-| `npm test` | Run all tests |
-| `npm run test:html` | Run tests + generate HTML |
-| `npm run allure:generate` | Generate Allure dashboard |
-| `npm run allure:serve` | Serve Allure in browser |
-| `npm run test:allure` | All-in-one: test + Allure |
-| `npm run clean:reports` | Clean all reports |
+| `npm test` | Run all tests only |
+| `npm run test:report` | Run tests + generate Allure report |
+| `npm run test:allure` | Run tests + report + serve in browser |
+| `npm run allure:generate` | Generate Allure report from existing results |
+| `npm run allure:serve` | Serve Allure report at http://localhost:8765 |
+| `npm run clean:reports` | Clean all report directories |
+
+### Manual Steps
+```cmd
+node run-tests.js              # Step 1: Run tests
+node generate-report.js        # Step 2: Generate Allure report
+node serve-allure.js           # Step 3: Serve at http://localhost:8765
+```
 
 ## Key Features
 
@@ -75,6 +88,9 @@ PW_TS_Project/
 - Allure advanced analytics
 - Screenshots on failures
 - JSON test data export
+- IST timezone for all timestamps
+- dd/MM/yyyy date format
+- Project name: Test_PW_TS
 
 ✅ **Browser Optimization**
 - Maximized window (1920×1440)
@@ -98,6 +114,20 @@ postalCode=12345
 - **Allure Dashboard**: `Reports/allure-report/output/index.html`
 - **Screenshots**: `Reports/screenshots/`
 - **Raw JSON**: `allure-results/cucumber.json`
+
+## Report Configuration
+
+- **Project Name**: Test_PW_TS
+- **Timezone**: IST (Asia/Kolkata)
+- **Date Format**: dd/MM/yyyy
+- **Report Server**: http://localhost:8765
+- **Environment**: QA
+- **Browser**: Chrome (Headless: false)
+
+Configuration files:
+- `allure-results/environment.properties` - Environment info
+- `allure-results/executor.json` - Build metadata
+- `.allurerc.json` - Allure settings
 
 ## Dependencies
 

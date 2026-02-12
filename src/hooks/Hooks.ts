@@ -2,15 +2,14 @@ import { Before, After, setDefaultTimeout, Status } from '@cucumber/cucumber';
 import { chromium, Browser, Page } from '@playwright/test';
 import { ScreenshotUtils } from '../utils/ScreenshotUtils';
 
-let browser: Browser;
-setDefaultTimeout(30000);
+setDefaultTimeout(10000);
 
 Before(async function () {
-    browser = await chromium.launch({ 
+    this.browser = await chromium.launch({ 
         headless: false,
         args: ['--start-maximized', '--window-size=1920,1440']
     });
-    this.page = await browser.newPage({ viewport: null });
+    this.page = await this.browser.newPage({ viewport: null });
 });
 
 After(async function (scenario) {
@@ -28,7 +27,7 @@ After(async function (scenario) {
     
     try {
         if (this.page) await this.page.close();
-        if (browser) await browser.close();
+        if (this.browser) await this.browser.close();
     } catch (e) {
         // Continue
     }

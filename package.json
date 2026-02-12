@@ -1,16 +1,15 @@
 {
-  "name": "pw_ts_project",
+  "name": "test_pw_ts",
   "version": "1.0.0",
-  "description": "",
+  "description": "Test_PW_TS - Playwright TypeScript Cucumber Automation Framework",
   "main": "index.js",
   "scripts": {
     "test": "node run-tests.js",
     "test:debug": "cucumber-js --format progress-bar --format json:allure-results/cucumber.json --format html:Reports/cucumber-html/cucumber-report.html",
-    "test:html": "node run-tests.js && npm run allure:generate",
-    "allure:generate": "npx allure generate allure-results --clean -o Reports/allure-report/output && echo ✅ Allure report generated",
-    "allure:serve": "npx allure serve Reports/allure-report/output --port 4040",
-    "test:report": "npm run test:html && npm run allure:generate",
-    "test:allure": "npm run test:html && npm run allure:serve",
+    "test:allure": "node run-tests.js && node generate-report.js && node serve-allure.js",
+    "allure:generate": "node generate-report.js",
+    "allure:serve": "node serve-allure.js",
+    "test:report": "node run-tests.js && node generate-report.js",
     "clean:reports": "rmdir /s /q allure-results Reports\\cucumber-html Reports\\allure-report 2>nul || true && mkdir allure-results Reports\\cucumber-html Reports\\allure-report && echo ✅ Reports cleaned"
   },
   "repository": {
