@@ -52,8 +52,44 @@ setTimeout(() => {
         console.log('⚠️  JSON file not created');
     }
     
+    // Copy screenshots to attachments directory first
+    console.log('\n🔗 Processing screenshots...');
+    const screenshotsDir = 'Reports/screenshots';
+    const attachmentsDir = 'allure-results/attachments';
+    
+    if (fs.existsSync(screenshotsDir)) {
+        // Create attachments directory if needed
+        if (!fs.existsSync(attachmentsDir)) {
+            fs.mkdirSync(attachmentsDir, { recursive: true });
+            console.log('✅ Created attachments directory');
+        }
+        
+        // Copy screenshots to attachments directory so Allure can find them
+        const screenshots = fs.readdirSync(screenshotsDir).filter(f => f.endsWith('.png'));
+        let copied = 0;
+        screenshots.forEach(file => {
+            try {
+                const srcPath = path.join(screenshotsDir, file);
+                const destPath = path.join(attachmentsDir, file);
+                fs.copyFileSync(srcPath, destPath);
+                copied++;
+            } catch (err) {
+                // Silently skip copy errors
+            }
+        });
+        console.log(`✅ Copied ${copied} screenshots to attachments directory`);
+    }
+    
+    // Link screenshots embeddings in JSON
+    console.log('🔗 Embedding screenshots in test results...');
+    try {
+        require('./link-screenshots.js');
+    } catch (e) {
+        console.log('⚠️  Could not link screenshots:', e.message);
+    }
+    
     console.log('\n📊 Next steps:');
     console.log('  1. Run: npm run allure:generate');
     console.log('  2. Run: npm run allure:serve');
-    console.log('  3. View: http://localhost:4040\n');
+    console.log('  3. View: http://localhost:8765\n');
 }, 1000);

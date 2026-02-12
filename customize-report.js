@@ -48,7 +48,16 @@ console.log('🎨 Customizing Allure report with IST timezone and dd/MM/yyyy for
 
 // Get current system time
 const now = new Date();
-console.log(`📅 System Time: ${now.toLocaleString()}`);
+const systemTimeFormatted = now.toLocaleString('en-GB', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+}).replace(', ', ' ');
+console.log(`📅 System Time: ${systemTimeFormatted}`);
 console.log(`📅 IST Time: ${formatDateToIST(now.getTime())}`);
 
 // Update summary.json
@@ -159,16 +168,14 @@ const envPath = 'allure-results/environment.properties';
 if (fs.existsSync(envPath)) {
     try {
         const istTime = formatDateToIST(Date.now());
-        const systemTime = now.toLocaleString();
         
         let envContent = fs.readFileSync(envPath, 'utf8');
         
-        // Add timestamp info
-        if (!envContent.includes('Report.Generated')) {
-            envContent += `\nReport.Generated.IST=${istTime} IST\n`;
-            envContent += `Report.Generated.System=${systemTime}\n`;
-            envContent += `Date.Format=dd/MM/yyyy HH:mm:ss IST\n`;
-        }
+        // Replace system time with properly formatted version if needed
+        envContent = envContent.replace(
+            /System\.Time=.*/,
+            `System.Time=${systemTimeFormatted}`
+        );
         
         fs.writeFileSync(envPath, envContent);
         console.log('✅ Environment properties updated with timestamps');

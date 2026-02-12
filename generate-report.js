@@ -36,10 +36,21 @@ try {
     console.log('================================\n');
     
     const now = new Date();
-    const systemTime = now.toLocaleString();
+    
+    // Format system time as dd/MM/yyyy HH:mm:ss
+    const systemDateString = now.toLocaleString('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+    }).replace(', ', ' ');
+    
     const istFormatted = formatDateToIST(now);
     
-    console.log('📅 System Time:', systemTime);
+    console.log('📅 System Time:', systemDateString);
     console.log('📅 IST Time:', istFormatted.full);
     console.log('');
     
@@ -48,13 +59,43 @@ try {
 Environment=QA
 Browser=Chrome
 Timezone=IST (Asia/Kolkata)
-Date.Format=dd/MM/yyyy HH:mm:ss IST
-System.Time=${systemTime}
+Date.Format=dd/MM/yyyy HH:mm:ss
+System.Time=${systemDateString}
 IST.Time=${istFormatted.displayFormat}
 Report.Generated=${istFormatted.displayFormat}`;
     
     fs.writeFileSync('allure-results/environment.properties', envProps);
     console.log('✅ Environment properties created with IST timestamps');
+    
+    // Create environment.json for Allure to display environment variables
+    const environmentJson = {
+        'Project Name': 'Test_PW_TS',
+        'Environment': 'QA',
+        'Browser': 'Chrome (Headless: false)',
+        'Resolution': '1920x1440',
+        'Timezone': 'IST (Asia/Kolkata)',
+        'Date Format': 'dd/MM/yyyy HH:mm:ss',
+        'System Time': systemDateString,
+        'IST Time': istFormatted.displayFormat,
+        'Report Generated': istFormatted.displayFormat
+    };
+    fs.writeFileSync('allure-results/environment.json', JSON.stringify(environmentJson, null, 2));
+    console.log('✅ Environment.json created for Allure dashboard');
+    
+    // Also create categories.json for better organization
+    const categoriesJson = [
+        {
+            name: 'Product issues',
+            matchedStatuses: ['failed'],
+            messageRegex: '.*timeout.*'
+        },
+        {
+            name: 'Test defects',
+            matchedStatuses: ['failed']
+        }
+    ];
+    fs.writeFileSync('allure-results/categories.json', JSON.stringify(categoriesJson, null, 2));
+    console.log('✅ Categories.json created for test categorization');
     
     // Create executor.json for build info with IST timezone
     const executorInfo = {
