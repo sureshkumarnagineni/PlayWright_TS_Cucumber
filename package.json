@@ -4,8 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cucumber-js",
-    "report": "allure serve allure-results"
+    "test": "node run-tests.js",
+    "test:debug": "cucumber-js --format progress-bar --format json:allure-results/cucumber.json --format html:Reports/cucumber-html/cucumber-report.html",
+    "test:html": "node run-tests.js && npm run allure:generate",
+    "allure:generate": "npx allure generate allure-results --clean -o Reports/allure-report/output && echo ✅ Allure report generated",
+    "allure:serve": "npx allure serve Reports/allure-report/output --port 4040",
+    "test:report": "npm run test:html && npm run allure:generate",
+    "test:allure": "npm run test:html && npm run allure:serve",
+    "clean:reports": "rmdir /s /q allure-results Reports\\cucumber-html Reports\\allure-report 2>nul || true && mkdir allure-results Reports\\cucumber-html Reports\\allure-report && echo ✅ Reports cleaned"
   },
   "repository": {
     "type": "git",
@@ -22,6 +28,7 @@
   "devDependencies": {
     "@cucumber/cucumber": "^12.6.0",
     "@playwright/test": "^1.58.2",
+    "allure-commandline": "^2.25.0",
     "allure-cucumberjs": "^2.10.0",
     "properties-reader": "^3.0.1",
     "ts-node": "^10.9.2",

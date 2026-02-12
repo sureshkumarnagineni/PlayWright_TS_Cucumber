@@ -1,6 +1,44 @@
 <?xml version="1.0"?>
-<testsuite name="Cucumber" time="6.031" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-02-11T16:50:51.813Z">
-  <testcase classname="Purchase Workflow" name="Successfully purchase a product as a Standard User" time="6.006">
+<testsuite name="Cucumber" time="68.802" tests="6" skipped="0" failures="1" errors="0" timestamp="2026-02-12T06:57:15.244Z">
+  <testcase classname="Advanced Filtering Workflow" name="Filter products by price range and verify results" time="8.409">
+    <system-out><![CDATA[Given User launches the application.........................................passed
+When User logins as "standard_user".........................................passed
+And User applies price range filter.........................................passed
+And User sorts products by price ascending..................................passed
+Then User verifies filtered products are within price range.................passed]]></system-out>
+  </testcase>
+  <testcase classname="Cart Management Workflow" name="Add multiple products and manage cart operations" time="37.111">
+    <failure type="TimeoutError" message="page.waitForSelector: Timeout 30000ms exceeded.&#xA;Call log:&#xA;[2m  - waiting for locator('.shopping_cart_link123') to be visible[22m&#xA;"><![CDATA[    at PlaywrightActions.click (D:\PW_TS_Project\src\actions\PlaywrightActions.ts:17:25)
+    at CartModule.openCart (D:\PW_TS_Project\src\modules\CartModule.ts:26:28)
+    at World.<anonymous> (D:\PW_TS_Project\src\steps\CartManagementSteps.ts:12:19)]]></failure>
+    <system-out><![CDATA[Given User launches the application.........................................passed
+When User logins as "standard_user".........................................passed
+And User adds multiple products to cart.....................................passed
+And User verifies cart item count...........................................failed
+And User removes a product from cart........................................skipped
+Then User verifies updated cart count.......................................skipped]]></system-out>
+  </testcase>
+  <testcase classname="Inventory Status Verification" name="Verify product availability and inventory status" time="5.173">
+    <system-out><![CDATA[Given User launches the application.........................................passed
+When User logins as "standard_user".........................................passed
+And User navigates to inventory.............................................passed
+And User checks product availability........................................passed
+Then User verifies all products have inventory status.......................passed]]></system-out>
+  </testcase>
+  <testcase classname="Session Management - Logout Workflow" name="User performs action and then logs out successfully" time="7.624">
+    <system-out><![CDATA[Given User launches the application.........................................passed
+When User logins as "standard_user".........................................passed
+And User adds product to cart and completes checkout........................passed
+And User performs logout....................................................passed
+Then User verifies logout and redirected to login page......................passed]]></system-out>
+  </testcase>
+  <testcase classname="Product Filter Workflow" name="Search and filter products by price" time="5.799">
+    <system-out><![CDATA[Given User launches the application.........................................passed
+When User logins as "standard_user".........................................passed
+And User filters products by low to high price..............................passed
+Then User verifies first product is cheaper than last product...............passed]]></system-out>
+  </testcase>
+  <testcase classname="Purchase Workflow" name="Successfully purchase a product as a Standard User" time="4.635">
     <system-out><![CDATA[Given User launches the application.........................................passed
 When User logins as "standard_user".........................................passed
 And User adds product to cart and completes checkout........................passed

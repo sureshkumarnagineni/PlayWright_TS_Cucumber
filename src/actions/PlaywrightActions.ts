@@ -1,4 +1,5 @@
 import { Page, expect } from '@playwright/test';
+import { ScreenshotUtils } from '../utils/ScreenshotUtils';
 
 export class PlaywrightActions {
     private softErrors: string[] = [];
@@ -75,5 +76,20 @@ export class PlaywrightActions {
 
     async getCurrentUrl(): Promise<string> {
         return this.page.url();
+    }
+
+    /**
+     * Capture screenshot on demand
+     * @param name - Optional name for screenshot (auto-generated if not provided)
+     */
+    async takeScreenshot(name: string = 'screenshot'): Promise<string> {
+        return await ScreenshotUtils.captureScreenshot(this.page, name);
+    }
+
+    /**
+     * Capture screenshot as base64 for embedding in reports
+     */
+    async getScreenshotAsBase64(): Promise<string> {
+        return await ScreenshotUtils.captureAsBase64(this.page);
     }
 }

@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Screenshots (moved to Reports/screenshots)
+screenshots/
+Reports/screenshots/*
+!Reports/screenshots/.gitkeep
+
+# Build outputs
+dist/
+build/
+
+# Allure results (raw test data)
+allure-results/*
+!allure-results/.gitkeep
+
+# Reports (keep folder structure, ignore content)
+Reports/cucumber-html/*
+Reports/allure-report/*
+!Reports/cucumber-html/.gitkeep
+!Reports/allure-report/.gitkeep
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test reports
+cucumber-report.html
+cucumber.json
+
+

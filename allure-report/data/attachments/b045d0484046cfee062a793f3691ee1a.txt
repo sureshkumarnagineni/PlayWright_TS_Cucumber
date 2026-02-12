@@ -1,4 +1,0 @@
-Given User launches the application.........................................passed
-When User logins as "standard_user".........................................passed
-And User adds product to cart and completes checkout........................passed
-Then User verifies order confirmation "Thank you for your order!"...........passed
