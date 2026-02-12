@@ -46,12 +46,34 @@ export class PlaywrightActions {
         }
     }
     async wait(seconds: number) {
-    // Converts seconds to milliseconds (e.g., 2 becomes 2000)
-   try {
-    await this.page.waitForTimeout(seconds * 1000);
-   } catch (error) {
-    
-   }
-    
-}
+        // Converts seconds to milliseconds (e.g., 2 becomes 2000)
+        try {
+            await this.page.waitForTimeout(seconds * 1000);
+        } catch (error) {
+        }
+    }
+
+    async selectOptionByText(locator: string, text: string) {
+        await this.page.selectOption(locator, { label: text });
+    }
+
+    async getMultipleTexts(locator: string): Promise<string[]> {
+        return await this.page.locator(locator).allTextContents();
+    }
+
+    async getElementText(locator: string): Promise<string> {
+        return await this.page.textContent(locator) || '';
+    }
+
+    async getFirstElement(locator: string) {
+        return this.page.locator(locator).first();
+    }
+
+    async getElementsCount(locator: string): Promise<number> {
+        return await this.page.locator(locator).count();
+    }
+
+    async getCurrentUrl(): Promise<string> {
+        return this.page.url();
+    }
 }
