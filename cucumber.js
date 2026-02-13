@@ -1,6 +1,7 @@
 module.exports = {
   default: {
     // Feature files location
+    features: ['features/**/*.feature'],
     require: ['src/hooks/Hooks.ts', 'src/steps/**/*.ts'],
     requireModule: ['ts-node/register'],
     format: [
