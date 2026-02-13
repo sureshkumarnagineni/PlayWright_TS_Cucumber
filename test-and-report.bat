@@ -2,30 +2,34 @@
 setlocal enabledelayedexpansion
 
 echo ================================
-echo Test_PW_TS - Automation Report
+echo Test_PW_TS - Automation Reports
 echo ================================
 echo.
 
-echo 1/3 Running tests...
+echo 0/2 Cleaning old test results...
+if exist "Reports\cucumber-html\cucumber-report.html" (
+    del "Reports\cucumber-html\cucumber-report.html" >nul 2>&1
+)
+echo [OK] Cleaned old test data
+echo.
+
+echo 1/2 Running tests...
 cmd /c npx cucumber-js
 if errorlevel 1 (
     echo.
-    echo Warning: Some tests failed, but continuing to generate report...
+    echo Warning: Some tests failed, but continuing to generate reports...
     echo.
 )
 
 echo.
-echo 2/3 Generating Allure report (IST, dd/MM/yyyy format)...
-cmd /c node generate-report.js
-
-echo.
-echo 3/3 Opening report in browser...
+echo 2/2 Opening Cucumber report in browser...
 echo Project: Test_PW_TS
-echo Report available at: http://localhost:8765
-echo Timezone: IST (Asia/Kolkata)
-echo Date Format: dd/MM/yyyy
 echo.
-if exist "Reports\allure-report" start http://localhost:8765
-cmd /c node serve-allure.js
+echo Cucumber HTML Report:  http://localhost:3000
+echo.
+start http://localhost:3000
+timeout /t 2 /nobreak >nul
+echo Starting Cucumber report server...
+cmd /c start node serve-report.js
 
 endlocal

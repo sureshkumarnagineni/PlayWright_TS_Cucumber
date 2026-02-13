@@ -31,18 +31,6 @@ if (-not (Test-Path "node_modules")) {
     Write-Host "✅ Dependencies already installed" -ForegroundColor Green
 }
 
-# Verify Allure is available
-Write-Host ""
-Write-Host "🔍 Verifying Allure command..." -ForegroundColor Yellow
-try {
-    $allureVersion = npx allure --version
-    Write-Host "✅ Allure is available: $allureVersion" -ForegroundColor Green
-} catch {
-    Write-Host "⚠️  Allure might not be properly installed" -ForegroundColor Yellow
-    Write-Host "Attempting to install globally..." -ForegroundColor Yellow
-    npm install -g allure-commandline
-}
-
 # Menu
 Write-Host ""
 Write-Host "================================" -ForegroundColor Cyan
@@ -50,13 +38,12 @@ Write-Host "What would you like to do?" -ForegroundColor Cyan
 Write-Host "================================" -ForegroundColor Cyan
 Write-Host "1. Run tests only" -ForegroundColor White
 Write-Host "2. Run tests + generate reports" -ForegroundColor White
-Write-Host "3. Run tests + view Allure live" -ForegroundColor White
-Write-Host "4. View existing Allure report" -ForegroundColor White
-Write-Host "5. Clean all reports" -ForegroundColor White
-Write-Host "6. Exit" -ForegroundColor White
+Write-Host "3. Run tests + start report server" -ForegroundColor White
+Write-Host "4. Clean all reports" -ForegroundColor White
+Write-Host "5. Exit" -ForegroundColor White
 Write-Host ""
 
-$choice = Read-Host "Enter your choice (1-6)"
+$choice = Read-Host "Enter your choice (1-5)"
 
 switch ($choice) {
     "1" {
@@ -67,29 +54,23 @@ switch ($choice) {
     "2" {
         Write-Host ""
         Write-Host "🧪 Running tests and generating reports..." -ForegroundColor Yellow
-        npm run test:report
+        npm run test:debug
         Write-Host ""
-        Write-Host "📁 Reports generated:" -ForegroundColor Green
+        Write-Host "📁 Report generated:" -ForegroundColor Green
         Write-Host "  - HTML: Reports\cucumber-html\cucumber-report.html" -ForegroundColor White
-        Write-Host "  - Allure: Reports\allure-report\output\index.html" -ForegroundColor White
     }
     "3" {
         Write-Host ""
-        Write-Host "🧪 Running tests, generating reports, and starting Allure server..." -ForegroundColor Yellow
-        npm run test:allure
+        Write-Host "🧪 Running tests and starting report server..." -ForegroundColor Yellow
+        cmd /c test-and-report.bat
     }
     "4" {
         Write-Host ""
-        Write-Host "📊 Launching Allure report server..." -ForegroundColor Yellow
-        npm run allure:serve
-    }
-    "5" {
-        Write-Host ""
-        Write-Host "🗑️  Cleaning all reports..." -ForegroundColor Yellow
+        Write-Host "�️  Cleaning all reports..." -ForegroundColor Yellow
         npm run clean:reports
         Write-Host "✅ Reports cleaned" -ForegroundColor Green
     }
-    "6" {
+    "5" {
         Write-Host "👋 Goodbye!" -ForegroundColor Cyan
         exit 0
     }

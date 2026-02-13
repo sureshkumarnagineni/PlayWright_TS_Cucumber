@@ -19,25 +19,25 @@ export class ScreenshotUtils {
     static async captureScreenshot(page: any, scenarioName: string): Promise<string> {
         try {
             this.ensureScreenshotsDir();
-            
+
             const timestamp = new Date().toISOString()
                 .replace(/[:.]/g, '-')
-                .split('T')[0] + '_' + 
+                .split('T')[0] + '_' +
                 new Date().getHours().toString().padStart(2, '0') +
                 new Date().getMinutes().toString().padStart(2, '0') +
                 new Date().getSeconds().toString().padStart(2, '0');
-            
+
             const sanitizedName = scenarioName
                 .toLowerCase()
                 .replace(/[^a-z0-9]/g, '_')
                 .substring(0, 50);
-            
+
             const filename = `${sanitizedName}_${timestamp}.png`;
             const filepath = path.join(this.screenshotsDir, filename);
-            
+
             await page.screenshot({ path: filepath, fullPage: true });
             console.log(`✓ Screenshot captured: ${filename}`);
-            
+
             return filepath;
         } catch (error: any) {
             console.error(`✗ Failed to capture screenshot: ${error.message}`);
@@ -53,7 +53,7 @@ export class ScreenshotUtils {
     }
 
     /**
-     * Save screenshot as base64 for Allure report attachment
+     * Save screenshot as base64 for report attachment
      */
     static async captureAsBase64(page: any): Promise<string> {
         try {
@@ -68,25 +68,25 @@ export class ScreenshotUtils {
     /**
      * Capture screenshot and return as base64 with filename (for embedding)
      */
-    static async captureScreenshotAsBase64(page: any, scenarioName: string): Promise<{data: string, filename: string}> {
+    static async captureScreenshotAsBase64(page: any, scenarioName: string): Promise<{ data: string, filename: string }> {
         try {
             const buffer = await page.screenshot({ fullPage: true });
-            
+
             const timestamp = new Date().toISOString()
                 .replace(/[:.]/g, '-')
-                .split('T')[0] + '_' + 
+                .split('T')[0] + '_' +
                 new Date().getHours().toString().padStart(2, '0') +
                 new Date().getMinutes().toString().padStart(2, '0') +
                 new Date().getSeconds().toString().padStart(2, '0');
-            
+
             const sanitizedName = scenarioName
                 .toLowerCase()
                 .replace(/[^a-z0-9]/g, '_')
                 .substring(0, 50);
-            
+
             const filename = `${sanitizedName}_${timestamp}.png`;
             const base64Data = buffer.toString('base64');
-            
+
             // Also save file to Reports/screenshots for archival
             this.ensureScreenshotsDir();
             const filepath = path.join(this.screenshotsDir, filename);
@@ -96,7 +96,7 @@ export class ScreenshotUtils {
             } catch (e) {
                 // File saving optional, continue with embedding
             }
-            
+
             return { data: base64Data, filename };
         } catch (error: any) {
             console.error(`✗ Failed to capture screenshot: ${error.message}`);

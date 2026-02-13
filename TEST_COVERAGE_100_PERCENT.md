@@ -370,16 +370,13 @@ features/           → Cucumber feature files (Gherkin scenarios)
 
 ```bash
 # Run all tests with report
-npm run test:report
+npm run test:debug
 
 # Run specific feature
 npx cucumber-js features/login-scenarios.feature
 
-# Generate Allure report
-npm run allure:generate
-
-# Serve Allure report
-npm run allure:serve
+# View reports live
+cmd /c test-and-report.bat
 ```
 
 ---
@@ -393,7 +390,7 @@ npm run allure:serve
 - IST timezone configured
 - Screenshots on failure
 - Parallel execution supported (10 workers)
-- Allure reporting enabled
+- Cucumber HTML reporting enabled
 
 ---
 
@@ -409,6 +406,6 @@ npm run allure:serve
 
 ---
 
-**Generated on:** February 12, 2026
-**Framework:** Playwright + TypeScript + Cucumber + Allure
+**Generated on:** February 13, 2026
+**Framework:** Playwright + TypeScript + Cucumber + HTML Reports
 **Test Coverage:** 100%

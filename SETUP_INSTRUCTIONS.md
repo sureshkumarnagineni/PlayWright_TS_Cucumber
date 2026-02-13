@@ -13,51 +13,38 @@ npm install
 This will install:
 - ✅ Cucumber.js
 - ✅ Playwright
-- ✅ Allure command-line
 - ✅ TypeScript
 - ✅ All other dependencies
 
 ### Step 2: Verify Installation
 
 ```bash
-# Check if allure is installed
-npx allure --version
-
 # Check if cucumber is installed
 npx cucumber-js --version
+
+# Check Node version
+node --version
 ```
 
 ### Troubleshooting Installation
 
-#### Issue: "allure: command not found"
+#### Issue: Dependencies not installing
 
-**Solution 1: Reinstall dependencies**
+**Solution: Reinstall dependencies**
 ```bash
 # Delete node_modules and reinstall
 rm -r node_modules
 npm install
 ```
 
-**Solution 2: Install Allure globally** (Windows)
-```bash
-npm install -g allure-commandline
-```
-
-**Solution 3: Install Allure globally** (Mac/Linux)
-```bash
-brew install allure
-# Or
-sudo npm install -g allure-commandline
-```
-
-#### Issue: Port 4040 already in use
+#### Issue: Port 3000 already in use
 
 ```bash
 # Kill process on Windows
-netstat -ano | findstr :4040
+netstat -ano | findstr :3000
 taskkill /PID <PID> /F
 
-# Or use different port
+# Or use different port (modify serve-report.js)
 npx allure serve Reports/allure-report/output --port 5000
 ```
 
@@ -73,7 +60,7 @@ npm install @cucumber/cucumber --save-dev
 ## Quick Setup (One Command)
 
 ```bash
-npm install && npm run test:html && npm run allure:generate
+npm install && npm test
 ```
 
 ---
@@ -82,25 +69,19 @@ npm install && npm run test:html && npm run allure:generate
 
 ### Test 1: HTML Report Generation
 ```bash
-npm run test:html
+npm run test:debug
 ```
 ✅ Should create:
 - `Reports/cucumber-html/cucumber-report.html`
-- `Reports/allure-report/cucumber.json`
 
-### Test 2: Allure Generation
+### Test 2: Run Tests with Report Server
 ```bash
-npm run allure:generate
-```
-✅ Should create:
-- `Reports/allure-report/output/index.html`
-
-### Test 3: View Allure Report
-```bash
-npm run allure:serve
+cmd /c test-and-report.bat
 ```
 ✅ Should:
-- Start server on http://localhost:4040
+- Run all tests
+- Generate HTML report
+- Start server on http://localhost:3000
 - Automatically open in browser
 
 ---
@@ -111,13 +92,11 @@ npm run allure:serve
 PW_TS_Project/
 ├── node_modules/           ← Dependencies installed here
 ├── Reports/
-│   ├── cucumber-html/
-│   │   └── cucumber-report.html
-│   └── allure-report/
-│       ├── cucumber.json
-│       └── output/
-│           └── index.html
-├── package.json            ← Updated with allure-commandline
+│   └── cucumber-html/
+│       └── cucumber-report.html
+├── features/               ← Feature files
+├── src/                    ← Step definitions and hooks
+├── package.json
 ├── cucumber.js
 └── ... (other files)
 ```
@@ -127,10 +106,9 @@ PW_TS_Project/
 ## Next Steps
 
 1. ✅ Run: `npm install`
-2. ✅ Run: `npm run test:html`
-3. ✅ Run: `npm run allure:generate`
-4. ✅ Run: `npm run allure:serve`
-5. ✅ View reports in browser
+2. ✅ Run: `npm test`
+3. ✅ Run: `npm run test:debug` or `cmd /c test-and-report.bat`
+4. ✅ View reports in browser at `http://localhost:3000`
 
 ---
 
@@ -138,14 +116,14 @@ PW_TS_Project/
 
 ### Debug: Check npm packages
 ```bash
-npm list | grep allure
 npm list | grep cucumber
+npm list | grep playwright
 ```
 
 ### Debug: Check installed versions
 ```bash
-npx allure --version
 npx cucumber-js --version
+node --version
 ```
 
 ### Debug: Full setup from scratch

@@ -5,12 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "node run-tests.js",
-    "test:debug": "cucumber-js --format progress-bar --format json:allure-results/cucumber.json --format html:Reports/cucumber-html/cucumber-report.html",
-    "test:allure": "node run-tests.js && node generate-report.js && node serve-allure.js",
-    "allure:generate": "node generate-report.js",
-    "allure:serve": "node serve-allure.js",
-    "test:report": "node run-tests.js && node generate-report.js",
-    "clean:reports": "rmdir /s /q allure-results Reports\\cucumber-html Reports\\allure-report 2>nul || true && mkdir allure-results Reports\\cucumber-html Reports\\allure-report && echo ✅ Reports cleaned"
+    "test:debug": "cucumber-js --format progress-bar --format html:Reports/cucumber-html/cucumber-report.html",
+    "clean:reports": "rmdir /s /q Reports\\cucumber-html 2>nul || true && mkdir Reports\\cucumber-html && echo ✅ Reports cleaned"
   },
   "repository": {
     "type": "git",

@@ -6,8 +6,7 @@ module.exports = {
     requireModule: ['ts-node/register'],
     format: [
       'progress-bar',
-      'html:Reports/cucumber-html/cucumber-report.html',
-      'json:allure-results/cucumber.json'
+      'html:Reports/cucumber-html/cucumber-report.html'
     ],
     formatOptions: {
       snippetInterface: 'async-await'
