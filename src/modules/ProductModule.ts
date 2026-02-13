@@ -11,7 +11,7 @@ export class ProductModule {
 
     async filterByPriceAscending() {
         await this.actions.click(this.productPage.filterDropdown);
-        await this.actions.selectOptionByText(this.productPage.filterDropdown, this.productPage.priceAscending);
+        await this.actions.selectOptionByText(this.productPage.filterDropdown, this.productPage.sortPriceAsc);
         await this.actions.wait(2);
     }
 

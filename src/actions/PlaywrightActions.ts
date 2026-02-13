@@ -4,7 +4,7 @@ import { ScreenshotUtils } from '../utils/ScreenshotUtils';
 export class PlaywrightActions {
     private softErrors: string[] = [];
 
-    constructor(private page: Page) {}
+    constructor(private page: Page) { }
 
     async goto(url: string) { await this.page.goto(url); }
 
@@ -76,6 +76,24 @@ export class PlaywrightActions {
 
     async getCurrentUrl(): Promise<string> {
         return this.page.url();
+    }
+
+    async isElementVisible(locator: string): Promise<boolean> {
+        try {
+            await this.page.waitForSelector(locator, { state: 'visible', timeout: 2000 });
+            return true;
+        } catch {
+            return false;
+        }
+    }
+
+    async getElementsBySelector(locator: string) {
+        return await this.page.locator(locator).elementHandles();
+    }
+
+    async getSelectedOptionText(locator: string): Promise<string> {
+        const value = await this.page.inputValue(locator);
+        return value;
     }
 
     /**

@@ -1,10 +1,12 @@
 import { PlaywrightActions } from '../actions/PlaywrightActions';
 import { CartPage } from '../pages/CartPage';
+import { ProductPage } from '../pages/ProductPage';
 import { FileUtils } from '../utils/FileUtils';
 
 export class PurchaseModule {
   private actions: PlaywrightActions;
   private cartPage = new CartPage();
+  private productPage = new ProductPage();
 
   constructor(page: any) {
     this.actions = new PlaywrightActions(page);
@@ -17,7 +19,7 @@ export class PurchaseModule {
   }
 
   async addProductAndCompleteCheckout() {
-    await this.actions.click(this.cartPage.addToCartBackpack);
+    await this.actions.click(this.productPage.addBackpack);
     await this.actions.click(this.cartPage.cartIcon);
     await this.actions.click(this.cartPage.checkoutButton);
     await this.actions.type(this.cartPage.firstNameInput, FileUtils.getProperty('firstName'));

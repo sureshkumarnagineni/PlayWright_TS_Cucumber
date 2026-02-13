@@ -9,9 +9,11 @@ When('User applies price range filter', async function () {
 });
 
 When('User sorts products by price ascending', async function () {
+    if (!filterMod) filterMod = new FilterModule(this.page);
     await filterMod.sortByPriceAscending();
 });
 
 Then('User verifies filtered products are within price range', async function () {
+    if (!filterMod) filterMod = new FilterModule(this.page);
     await filterMod.verifyFilteredProductsInPriceRange();
 });

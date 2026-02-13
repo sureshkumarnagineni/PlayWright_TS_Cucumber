@@ -9,5 +9,6 @@ When('User performs logout', async function () {
 });
 
 Then('User verifies logout and redirected to login page', async function () {
+    if (!sessionMod) sessionMod = new SessionModule(this.page);
     await sessionMod.verifyLogoutAndRedirect();
 });

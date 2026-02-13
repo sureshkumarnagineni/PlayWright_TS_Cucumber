@@ -1,9 +1,11 @@
 import { PlaywrightActions } from '../actions/PlaywrightActions';
 import { FilterPage } from '../pages/FilterPage';
+import { ProductPage } from '../pages/ProductPage';
 
 export class FilterModule {
     private actions: PlaywrightActions;
     private filterPage = new FilterPage();
+    private productPage = new ProductPage();
 
     constructor(page: any) {
         this.actions = new PlaywrightActions(page);
@@ -11,12 +13,12 @@ export class FilterModule {
 
     async applyPriceFilter() {
         // Sort by price ascending
-        await this.actions.selectOptionByText(this.filterPage.sortDropdown, this.filterPage.priceAscendingOption);
+        await this.actions.selectOptionByText(this.filterPage.sortDropdown, this.productPage.sortPriceAsc);
         await this.actions.wait(2);
     }
 
     async sortByPriceAscending() {
-        await this.actions.selectOptionByText(this.filterPage.sortDropdown, this.filterPage.priceAscendingOption);
+        await this.actions.selectOptionByText(this.filterPage.sortDropdown, this.productPage.sortPriceAsc);
         await this.actions.wait(1);
     }
 
